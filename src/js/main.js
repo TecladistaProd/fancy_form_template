@@ -2,7 +2,7 @@ const questions = [
     {question: 'Enter your first name'},
     { question: 'Enter your last name' },
     { question: 'Enter your email', pattern: /\S+@\S+\.\S/, type: 'email'},
-    { question: 'Create a password', type: 'password' }
+    { question: 'Create a password', type: 'password', pattern: /^(?=.*\d)[A-Za-z\d]{6,}$/m, tooltip: '6 or more character with 1 or more number' }
 ]
 
 const shakeTime = 100
@@ -45,6 +45,8 @@ function getQuestion() {
     setTimeout(() => inputField.focus(), 1500)
     progress.style.width = (position * 100) / questions.length + '%'
     prevBtn.className = position ? 'fas fa-arrow-left' : 'fas fa-user'
+    questions[position].tooltip ? document.querySelector('#input-group span').innerText = questions[position].tooltip : document.querySelector('#input-group span').innerText = ''
+    questions[position].tooltip ? document.querySelector('#input-group span').className = 'tooltip' : document.querySelector('#input-group span').className = ''
     showQuestion()
 }
 
